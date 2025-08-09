@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're Invited! Tiaa's 23rd Birthday</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Playfair+Display:wght@700&family=Lobster&family=Sacramento&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff69b4; /* Hot Pink */
+            --secondary-color: #fff;
+            --text-color: #333;
+            --background-color: #f8f8ff; /* Ghost White */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        .background-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffc0cb, #f0f8ff, #ffc0cb);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            z-index: -1;
+        }
+        
+        .background-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+            background-size: 15px 15px;
+            opacity: 0.5;
+        }
+        
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.7); /* Opacity dikurangi agar latar belakang terlihat */
+            backdrop-filter: blur(5px);
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .heart {
+            position: absolute;
+            animation: float 5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
+        }
+
+        .title {
+            font-family: 'Lobster', cursive; /* Font judul utama */
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s forwards;
+            white-space: pre-line;
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif; /* Font subtitle */
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-top: 10px;
+            animation: fadeInUp 1s forwards;
+            animation-delay: 0.5s;
+            opacity: 0;
+        }
+        
+        .info {
+            font-family: 'Sacramento', cursive; /* Font untuk detail waktu/lokasi */
+            font-size: 1.8rem;
+            margin-top: 20px;
+            line-height: 1.6;
+            animation: fadeIn 1s forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .info-list li {
+            font-family: 'Sacramento', cursive; /* Font untuk list aktivitas */
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            animation: slideInRight 1s forwards;
+            opacity: 0;
+        }
+        
+        .image-container {
+            margin-top: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+            width: 80%;
+            max-width: 400px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: zoomIn 1s forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+        }
+
+        .caption {
+            font-style: italic;
+            margin-top: 10px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            animation: fadeIn 1s forwards;
+            animation-delay: 1.5s;
+            opacity: 0;
+        }
+
+        .dresscode {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .notes {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 1s forwards;
+            animation-delay: 0.5s;
+            opacity: 0;
+        }
+
+        .notes p {
+            margin-bottom: 15px;
+        }
+
+        .request {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-style: italic;
+            animation: shake 2s infinite;
+        }
+        
+        /* Animations */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); } 20%, 40%, 60%, 80% { transform: translateX(5px); } }
+
+        @media (max-width: 600px) {
+            .title { font-size: 2rem; }
+            .subtitle { font-size: 1.2rem; }
+            .info, .notes { font-size: 1rem; }
+            .dresscode { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-effect"></div>
+    <div class="container" id="main-container">
+        <div class="slide active" id="slide1">
+            <h1 class="title">You're Invited!</h1>
+            <h2 class="subtitle">TO CELEBRATE TIAA's 23rd BIRTHDAY</h2>
+            <div class="info">
+                <p>ON: Sunday, August 10</p>
+                <p>AT: 03.30 PM - End</p>
+                <p>LOCATION: Secret</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide2">
+            <h1 class="title">What are we gonna do?</h1>
+            <ul class="info-list">
+                <li style="animation-delay: 0.8s;">1. Pick Up My Queen (Tiaa)</li>
+                <li style="animation-delay: 1.2s;">2. Make you Happy!!!</li>
+                <li style="animation-delay: 1.6s;">3. Birthday Dinner at Something Place</li>
+            </ul>
+            <div class="image-container" style="animation-delay: 2s;">
+                <img src="tia7.jpg" alt="Birthday Girl Tiaa">
+            </div>
+            <p class="caption" style="animation-delay: 2.5s;">Birthday Girl</p>
+            <p class="dresscode" style="animation-delay: 3s;">Dresscode: White</p>
+        </div>
+
+        <div class="slide" id="slide3">
+            <h1 class="title">Notes</h1>
+            <div class="notes">
+                <p>Please be on time, wear and prepare your best outfit and I hope we can make this Birthday to remember!</p>
+                <p class="request">Request!!! Pakai Jilbab yang aku suka ya cantik!!!</p>
+            </div>
+            <div class="image-container" style="animation-delay: 2s;">
+                <img src="raja1.jpg" alt="Your Boyfriend">
+            </div>
+            <p class="caption" style="animation-delay: 2.5s;">-your boyfriend-</p>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlideIndex = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+            currentSlideIndex = index;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlide(0);
+
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+                heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+                document.getElementById('main-container').appendChild(heart);
+                setTimeout(() => {
+                    heart.remove();
+                }, 10000);
+            }
+
+            setInterval(createHeart, 500);
+
+            const mainContainer = document.getElementById('main-container');
+            mainContainer.addEventListener('click', (e) => {
+                if (!e.target.closest('a')) {
+                    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                    showSlide(currentSlideIndex);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
